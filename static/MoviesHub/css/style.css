@@ -39,3 +39,9 @@ body, html {
     border-radius: 50%;
     color: white;
 }
+
+.movie_img {
+    width: 500px;
+    height: 700px;
+    float: left;
+}

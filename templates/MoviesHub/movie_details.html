@@ -1,0 +1,25 @@
+{% extends 'MoviesHub/base.html' %}
+{% load static %}
+{% block body_block %}
+    <div class="container-fluid">
+
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-4">
+                {% ifnotequal real_data.primary_info_data.backdrop_path None %}
+                    <img class="movie_img" src="https://image.tmdb.org/t/p/original//{{ real_data.primary_info_data.poster_path }}"
+                         alt="{{ details.original_title }}">
+                {% else %}
+                    <img class="movie_img" src="{% static 'MoviesHub/img/download.png' %}"
+                         alt="{{ details.original_title }}">
+                {% endifnotequal %}
+            </div>
+            <div class="col-md-8">
+                {#   for primary Information #}
+
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
