@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MoviesHub.apps.MovieshubConfig',
+    'bootstrap'
 ]
 
 MIDDLEWARE = [
@@ -115,8 +116,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+# API KEY TMDB
+
+TMDB_KEY = '62085e8503871ea87e26a77abcdda03c'
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_files")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
