@@ -52,7 +52,7 @@ def get_movie_details(request, movie_id):
         images_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/images?api_key='+TMDB_KEY
         plot_keywords_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/keywords?api_key='+TMDB_KEY
         release_info_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/release_dates?api_key='+TMDB_KEY
-        trailers_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/videos?api_key='+TMDB_KEY
+        videos_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/videos?api_key='+TMDB_KEY
         reviews_link = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'/reviews?api_key='+TMDB_KEY
         # Taking too much time (calling multiple API) Using threads
         # Queue is used to store all data
@@ -63,7 +63,7 @@ def get_movie_details(request, movie_id):
         images_data = GetData(images_link,data,'images_data')
         plot_keywords_data = GetData(plot_keywords_link,data,'plot_keywords_data')
         release_info_data = GetData(release_info_link,data,'release_info_data')
-        trailers_data = GetData(trailers_link,data,'trailers_data')
+        videos_data = GetData(videos_link,data,'videos_data')
         reviews_data = GetData(reviews_link,data,'reviews_data')
         primary_info_data.start()
         alternative_data.start()
@@ -71,7 +71,7 @@ def get_movie_details(request, movie_id):
         images_data.start()
         plot_keywords_data.start()
         release_info_data.start()
-        trailers_data.start()
+        videos_data.start()
         reviews_data.start()
         real_data = {}
         for d in range(8):

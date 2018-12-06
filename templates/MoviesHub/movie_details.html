@@ -6,7 +6,8 @@
         <div class="row" style="margin-top: 100px;">
             <div class="col-md-4">
                 {% ifnotequal real_data.primary_info_data.backdrop_path None %}
-                    <img class="movie_img" src="https://image.tmdb.org/t/p/original//{{ real_data.primary_info_data.poster_path }}"
+                    <img class="movie_img"
+                         src="https://image.tmdb.org/t/p/original//{{ real_data.primary_info_data.poster_path }}"
                          alt="{{ details.original_title }}">
                 {% else %}
                     <img class="movie_img" src="{% static 'MoviesHub/img/download.png' %}"
@@ -15,10 +16,99 @@
             </div>
             <div class="col-md-8">
                 {#   for primary Information #}
+                <h2 class="bg-dark text-white jumbotron">{{ real_data.primary_info_data.title }}</h2>
+                <h3 class="text-white">Overview</h3>
+                <p class="lead text-white">{{ real_data.primary_info_data.overview }}</p>
+                <h3 class="text-white">Genres</h3>
+                <p class="lead text-white">
+                    {% for gen in  real_data.primary_info_data.genres %}
 
+                        {{ gen.name }},
+
+                    {% endfor %}</p>
+
+                {#            To show cast#}
+                <h3 class="mt-3 text-white">Cast</h3>
+                {#  To iterate for loop 5 times #}
+                <div class="mt-3 row">
+                    <div class="col-md-1">
+                    </div>
+                    {% for c in   real_data.cast_data.cast|slice:":5" %}
+                        <div class="col-md-2">
+                            <div class="card h-100">
+                                {% ifnotequal c.profile_path None %}
+                                    <img class="card-img-top"
+                                         src="https://image.tmdb.org/t/p/w500//{{ c.profile_path }}"
+                                         alt="Card image cap">
+                                {% else %}
+                                    <img class="card-img-top" src="{% static 'MoviesHub/img/download.png' %}"
+                                         alt="Card image cap">
+                                {% endifnotequal %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ c.character }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {#                <p>{{ real_data.cast_data }}</p>#}
+            </div>
+
+        </div>
+
+        {#    TO show other #}
+
+
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-4" style="background-color: #6b7574">
+                {#    Release dates #}
+                <h3 class="text-white mb-3 mt-3">Alternative titles</h3>
+                <div class="row">
+                    {#        Alternative titles#}
+                    <p class="lead text-white">
+                        {% for title in  real_data.alternative_data.titles %}
+                            {{ title.title }} || &nbsp;
+
+                        {% endfor %}
+                    </p>
+                </div>
+                <h3 class="text-white mb-3 mt-3">Keywords</h3>
+                <p class="lead text-white">
+                    {% for keyword in  real_data.plot_keywords_data.keywords %}
+
+                        {{ keyword.name }},
+
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="col-md-8">
+                {# Trailer #}
+                <h3 class="text-white">Trailer</h3>
+                {% for video in  real_data.videos_data.results %}
+                    {% ifequal video.type|lower 'Trailer'|lower %}
+                        <iframe
+                                src="https://www.youtube.com/embed/{{ video.key }}">
+                        </iframe>
+                    {% endifequal %}
+
+                {% endfor %}
             </div>
         </div>
 
+        <div class="row" style="margin-top: 50px">
+            <h3 class="text-white" style="margin-left: 45%;">Reviews</h3>
+            <div class="col-md-12">
+
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ real_data.reviews_data.results.0.author }}</h3>
+
+                        <p class="lead card-text">{{ real_data.reviews_data.results.0.content }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
